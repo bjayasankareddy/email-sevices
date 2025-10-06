@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QMail Client</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <!-- Login/Register Views (Overlay) -->
+        <div id="auth-container">
+            <div id="registration-view" class="auth-view">
+                <h2>Create Your QMail Account</h2>
+                <form id="registration-form">
+                    <div class="form-row">
+                        <input type="text" name="firstName" placeholder="First Name" required>
+                        <input type="text" name="lastName" placeholder="Last Name" required>
+                    </div>
+                    <input type="text" name="username" placeholder="Choose Username (e.g., user1)" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <input type="email" name="recoveryEmail" placeholder="Recovery Email" required>
+                    <input type="tel" name="phoneNumber" placeholder="Phone Number">
+                    <input type="text" name="address" placeholder="Address">
+                    <button type="submit">Create Account</button>
+                </form>
+                <p>Already have an account? <a href="#" id="show-login">Login here</a></p>
+            </div>
+
+            <div id="login-view" class="auth-view hidden">
+                <h2>Welcome Back</h2>
+                <form id="login-form">
+                    <input type="text" name="email" placeholder="user@qmail.co.in" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <button type="submit">Login</button>
+                </form>
+                <p>Don't have an account? <a href="#" id="show-register">Register here</a></p>
+            </div>
+        </div>
+
+        <!-- Main Application Layout (hidden until logged in) -->
+        <div id="app-layout" class="hidden">
+            <aside class="sidebar">
+                <h1 class="logo">QMail</h1>
+                <button class="compose-btn" id="compose-new-btn"><span class="material-symbols-outlined">edit</span> Compose</button>
+                <nav class="sidebar-nav">
+                    <ul>
+                        <li id="nav-inbox" class="nav-item active"><span class="material-symbols-outlined">inbox</span> Inbox</li>
+                        <li id="nav-sent" class="nav-item"><span class="material-symbols-outlined">send</span> Sent</li>
+                        <li id="nav-drafts" class="nav-item"><span class="material-symbols-outlined">draft</span> Drafts</li>
+                    </ul>
+                </nav>
+                <div class="sidebar-footer">
+                    <p id="welcome-message"></p>
+                    <button id="logout-button" title="Logout"><span class="material-symbols-outlined">logout</span></button>
+                </div>
+            </aside>
+
+            <main class="main-content">
+                <!-- Inbox View -->
+                <div id="inbox-view" class="email-list-view">
+                     <div class="inbox-header">
+                        <h3>Inbox</h3>
+                        <button id="refresh-inbox-button" title="Refresh Inbox"><span class="material-symbols-outlined">refresh</span></button>
+                    </div>
+                    <ul id="inbox-list"></ul>
+                </div>
+                <!-- Sent View -->
+                <div id="sent-view" class="email-list-view hidden">
+                     <div class="inbox-header">
+                        <h3>Sent</h3>
+                        <button id="refresh-sent-button" title="Refresh Sent Mail"><span class="material-symbols-outlined">refresh</span></button>
+                    </div>
+                    <ul id="sent-list"></ul>
+                </div>
+                <!-- Drafts View -->
+                 <div id="drafts-view" class="email-list-view hidden">
+                     <div class="inbox-header">
+                        <h3>Drafts</h3>
+                    </div>
+                    <p class="placeholder-text">Drafts functionality is coming soon.</p>
+                </div>
+            </main>
+        </div>
+
+        <!-- Compose & View Modals -->
+        <div id="compose-view" class="modal-overlay hidden">
+            <div class="modal-content">
+                <h3>New Message</h3>
+                <form id="compose-form">
+                    <input type="text" id="recipient-email" placeholder="To (e.g., user2@qmail.co.in)" required>
+                    <textarea id="message-body" placeholder="Your secure message..." rows="10" required></textarea>
+                    <div class="modal-actions">
+                        <button type="button" class="close-modal-btn">Cancel</button>
+                        <button type="submit" class="send-btn">Send</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div id="email-view" class="modal-overlay hidden">
+             <div class="modal-content">
+                <h3>Decrypted Message</h3>
+                <div class="email-details">
+                    <p><strong>From:</strong> <span id="email-from"></span></p>
+                    <p><strong>To:</strong> <span id="email-to"></span></p>
+                    <p><strong>Timestamp:</strong> <span id="email-timestamp"></span></p>
+                </div>
+                <div id="email-decrypted-body" class="email-body"></div>
+                <div class="modal-actions">
+                    <button type="button" class="close-modal-btn">Close</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="message-display" class="message-display"></div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
+
